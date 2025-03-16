@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5c98 Lisäosa</title>
+    <style>
+        body {
+            background-color: lightblue; /* Vaaleansininen taustaväri */
+            font-family: Arial, sans-serif;
+        }
+        .clock {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: lightblue;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+        .scroll-button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        .scroll-button:hover {
+            background-color: #0056b3;
+        }
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 14px;
+        }
+        section {
+            margin-top: 100px;
+        }
+        .gif-strip {
+            width: 100%; /* Vie koko näytön leveys */
+            height: 150px; /* Suikaleen korkeus */
+            background-image: url('kuva1.gif'); /* Viittaa GIF-tiedostoon */
+            background-repeat: repeat-x; /* Toistaa vaakasuunnassa */
+            background-size: auto 150px; /* Skaalaa korkeuden suikaleeseen */
+        }
+        .toggle-button {
+            position: fixed; /* Pitää painikkeen kiinteästi ruudussa */
+            bottom: 20px; /* Etäisyys näytön alareunasta */
+            right: 20px; /* Etäisyys näytön oikeasta reunasta */
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        .toggle-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script>
+        function scrollToSection() {
+            const section = document.getElementById('lower-section');
+            section.scrollIntoView({ behavior: 'smooth' }); // Siirrä sujuvasti osioon
+        }
+
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+        setInterval(updateClock, 1000); // Päivittää ajan sekunnin välein
+
+        let isPlaying = true;
+
+        function toggleAllGifs() {
+            const gifStrips = document.querySelectorAll('.gif-strip'); // Vain GIF-suikaleet
+            const button = document.querySelector('.toggle-button');
+
+            if (isPlaying) {
+                gifStrips.forEach(strip => strip.style.backgroundImage = 'none'); // Piilotetaan GIF
+                button.textContent = 'Käynnistä kaikki animaatiot'; // Päivitä painikkeen teksti
+            } else {
+                gifStrips.forEach(strip => strip.style.backgroundImage = "url('kuva1.gif')"); // Palautetaan GIF
+                button.textContent = 'Pysäytä kaikki animaatiot'; // Päivitä painikkeen teksti
+            }
+
+            isPlaying = !isPlaying; // Vaihda tilaa
+        }
+    </script>
+</head>
+<body onload="updateClock()">
+    <center>
+        <h1>Tervetuloa!</h1>
+        <h3>TIETOA SIVUSTA</h3>
+
+        <h4>
+        <br>Tämä sivu on toinen osa 5c98-sivustoa.
+        Älä välitä sivun erikoisesta nimestä, se johtuu käyttämästäni palvelusta.
+        Tällä sivulla ei ole uutisia, toisin kuin pääsivullamme.
+        Pidä hauskaa selaillessasi!
+        Tässä olivat tärkeimmät tiedot sivustosta.<br>
+        </h4>
+
+        <p>Suosituimmat</p>
+
+        <div class="clock">
+            <span>Kello on </span><span id="clock"></span>
+        </div>
+
+        <!-- Siirtymispainike -->
+        <button class="scroll-button" onclick="scrollToSection()">Siirry alemmas suosittuihin</button>
+
+        <!-- GIF-painike -->
+        <button class="toggle-button" onclick="toggleAllGifs()">Pysäytä kaikki animaatiot</button>
+
+        <!-- GIF-suikaleet -->
+        <div class="gif-strip"></div>
+        <div class="gif-strip"></div>
+
+        <!-- Alempi osio -->
+        <section id="lower-section">
+            <h2>Täällä on suositut jutut!</h2>
+            <p>Tervetuloa sivun alempaan osaan.</p>
+        </section>
+
+        <footer>
+            <p>© Piftu Oy - Kaikki oikeudet pidätetään.</p>
+        </footer>
+    </center>
+</body>
+</html>
